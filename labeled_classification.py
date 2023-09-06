@@ -16,15 +16,15 @@ x_test = x_test / 255.0
 
 # Build the CNN model
 model = keras.Sequential([
-    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    Conv2D(4, (3, 3), activation='gelu', input_shape=(28, 28, 1)),
     MaxPooling2D(2, 2),
     
-    Conv2D(64, (3, 3), activation='relu'),
+    Conv2D(8, (3, 3), activation='gelu'),
     MaxPooling2D(2, 2),
     
     Flatten(),
     
-    Dense(128, activation='relu'),
+    Dense(32, activation='gelu'),
     
     Dropout(0.5),
    
@@ -59,6 +59,8 @@ if __name__ == "__main__":
         loss='sparse_categorical_crossentropy',
         metrics=['accuracy']
     )
+
+    model.summary()
 
     # Train the model
     model.fit(x_train.reshape(-1, 28, 28, 1), y_train, epochs=5, validation_split=0.2)
